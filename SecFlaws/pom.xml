@@ -36,6 +36,8 @@
   </dependencies>
   <properties>
   	<tomcat.version>7.0.109</tomcat.version>
+	<sonar.organization>marciocorreia</sonar.organization>
+	<sonar.host.url>https://sonarcloud.io</sonar.host.url>
   </properties>
   <build>
     <finalName>SecFlaws</finalName>
