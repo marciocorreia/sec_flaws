@@ -9,11 +9,14 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import org.owasp.esapi.ESAPI;
+import org.owasp.esapi.codecs.UnixCodec;
 
 /**
  * Servlet implementation class UnsafeServlet
@@ -30,7 +33,7 @@ public class SafeServlet extends HttpServlet {
 		
 		
 		String input = request.getParameter("input");
-		LOGGER.info("Received {} as parameter", input);
+		LOGGER.info("Received {} as parameter", ESAPI.encoder().encodeForOS(new UnixCodec(), input));
 		
 		try (PrintWriter out = response.getWriter()) {
 			out.println("<!DOCTYPE html>");
@@ -38,10 +41,11 @@ public class SafeServlet extends HttpServlet {
 			out.println("	<head><title>SecFlaws Project</title></head>");
 			out.println("	<body>");
 			out.println("		<h1>SecFlaws Project</h1>");
-			out.println("		<p>input: ["+ input +"]");
+			out.println("		<p>input: ["+ ESAPI.encoder().encodeForHTML(input) +"]");
 			try (Connection conn = DriverManager.getConnection("jdbc:h2:~/eclipse/h2db/secflaws", "sa", "")){
-				Statement stmt = conn.createStatement();
-				ResultSet rs = stmt.executeQuery("SELECT * FROM CUSTOMERS WHERE NAME = '"+input+"'");
+				PreparedStatement stmt = conn.prepareStatement("SELECT * FROM CUSTOMERS WHERE NAME = '?'");
+				stmt.setString(1, input);
+				ResultSet rs = stmt.executeQuery();
 				out.println("		<table>");
 				out.println("			<tr><th>Id</th><th>Name</th></tr>");
 				while(rs.next()) {

@@ -33,6 +33,11 @@
   		<artifactId>h2</artifactId>
   		<version>2.1.214</version>
   	</dependency>
+  	<dependency>
+	    <groupId>org.owasp.esapi</groupId>
+	    <artifactId>esapi</artifactId>
+	    <version>2.5.1.0</version>
+	</dependency>
   </dependencies>
   <properties>
   	<tomcat.version>7.0.109</tomcat.version>
