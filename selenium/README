@@ -1,0 +1,10 @@
+# UFC AutoBots - Demonstração
+
+# Setup
+# Execute setup.sh no diretorio para preparar o ambiente virtual de execução python e instalar as bibliotecas e drivers necessários para utiização do Selenium Webdriver
+
+# Execução
+# Execute secflaws.sh para rodar a demonstração
+
+# Estudos
+# Abra secflaws.py para ver o código-fonte da demo e utiiza-lo como ponto e partida para os seus estudos de como desenvolver os seu próprios robôs
